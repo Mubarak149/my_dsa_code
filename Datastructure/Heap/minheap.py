@@ -1,4 +1,4 @@
-class MaxHeap:
+class MinHeap:
     def __init__(self, datas=[]):
         self.heap = [0]
         for data in datas:
@@ -31,22 +31,23 @@ class MaxHeap:
         parent = index//2
         if index <= 1:
             return
-        elif self.heap[index] > self.heap[parent]:
+        elif self.heap[index] < self.heap[parent]:
             self.__swap(index, parent)
             self.__floatUp(parent)
 
     def __bubbleDown(self, parentIndex):
         leftChild = parentIndex * 2
         rightChild = leftChild + 1
-        largestChild = parentIndex
+        smallestChild = parentIndex
 # check if it's a valid index and largest is less than it's left child
-        if len(self.heap) > leftChild and self.heap[largestChild] < self.heap[leftChild]:
-            largestChild = leftChild
-        if len(self.heap) > rightChild and self.heap[largestChild] < rightChild:
-            largestChild = rightChild
-        if largestChild != parentIndex:
-            self.__swap(largestChild, parentIndex) # largechild = parent while parent = largechild
-            self.__bubbleDown(largestChild) # then we bubble the largechild(he is the parent now)
+        if len(self.heap) > leftChild and self.heap[smallestChild] > self.heap[leftChild]:
+            smallestChild = leftChild
+        if len(self.heap) > rightChild and self.heap[smallestChild] > rightChild:
+            smallestChild = rightChild
+        if smallestChild != parentIndex:
+            self.__swap(smallestChild, parentIndex) # smallchild = parent while parent = smallchild
+            self.__bubbleDown(smallestChild) # then we bubble the smallchild(he is the parent now
+                                             # of another subtree)
 
     def accessParent(self,data):
         childs = []
@@ -70,8 +71,8 @@ class MaxHeap:
 
 
 # Test code
-m = MaxHeap([10,11,12,13,14,15,16,17,18,19,20])
+m = MinHeap([110,1,12,3,14,5,16,7,18,9,20])
 print(m.peek())
 print(m.heap)
-print(m.accessParent(16))
+print(m.accessParent(9)) # --> [14, 20]
 

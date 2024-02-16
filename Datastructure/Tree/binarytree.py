@@ -19,4 +19,3 @@ class Tree:
             else:
                 self.right = Tree(data)
                 return True
-            
